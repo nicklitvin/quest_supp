@@ -1,6 +1,5 @@
 
         use db;
-        drop table if exists locations;
         create table locations (
             title varchar(255),
             latitude decimal(10,5),
