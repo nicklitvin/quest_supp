@@ -6,7 +6,7 @@
             latitude decimal(10,5),
             longitude decimal(10,5),
             radius decimal(10,5),
-            place_id varchar(255) key primary
+            place_id varchar(255) primary key
         );
         insert ignore into locations 
     (
