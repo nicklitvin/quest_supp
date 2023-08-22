@@ -1,26 +1,28 @@
+use db;
 
-        use db;
-        create table locations (
-            title varchar(255),
-            latitude decimal(10,5),
-            longitude decimal(10,5),
-            radius decimal(10,5),
-            place_id varchar(255) primary key
-        );
-        insert ignore into locations 
-    (
-        title,
-        latitude,
-        longitude,
-        radius,
-        place_id
-    )
-    values 
+create table if not exists locations (
+    title varchar(255),
+    latitude decimal(10,5),
+    longitude decimal(10,5),
+    radius decimal(10,5),
+    place_id varchar(255),
+    primary key (place_id)
+);
+
+insert ignore into locations 
+(
+    title,
+    latitude,
+    longitude,
+    radius,
+    place_id
+)
+values 
 
 
 ('Crissy Field',37.8040257,-122.4650165,50,'ChIJVbMlhdyGhYARADaqASKRFVs'),
 ('Treasure Island View Point',37.8323883,-122.3732796,50,'ChIJG8d-cqKBhYARmPBe6CwpNPs'),
-('Telegraph Hill viewpoint',37.80295777105679, -122.40479889574539,50,'ChIJYXcCXGyBhYARhmy-9eDnU0U');
+('Telegraph Hill viewpoint',37.80295777105679, -122.40479889574539,50,'ChIJYXcCXGyBhYARhmy-9eDnU0U'),
 ('The Pier',37.7944776,-122.3897469,50,'ChIJv4ZHEjeBhYARl10l1XIUU9I'),
 ('Peace Pagoda',37.7850239,-122.4298442,50,'ChIJb8fP0r6AhYARHk9jP9FizCU'),
 ('Tank Hill',37.7599053,-122.447707,50,'ChIJGTDJF_59j4ARUraPc7mH_cI'),

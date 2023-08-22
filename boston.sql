@@ -1,21 +1,23 @@
+use db;
 
-        use db;
-        create table locations (
-            title varchar(255),
-            latitude decimal(10,5),
-            longitude decimal(10,5),
-            radius decimal(10,5),
-            place_id varchar(255) key primary
-        );
-        insert ignore into locations 
-    (
-        title,
-        latitude,
-        longitude,
-        radius,
-        place_id
-    )
-    values 
+create table if not exists locations (
+    title varchar(255),
+    latitude decimal(10,5),
+    longitude decimal(10,5),
+    radius decimal(10,5),
+    place_id varchar(255),
+    primary key (place_id)
+);
+
+insert ignore into locations 
+(
+    title,
+    latitude,
+    longitude,
+    radius,
+    place_id
+)
+values 
 
 
 ('Public Garden',42.3540639,-71.0700921,50,'ChIJu2Argp5w44kRAecWXgt_18s'),

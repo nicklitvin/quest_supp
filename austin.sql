@@ -1,21 +1,24 @@
 
-        use db;
-        create table locations (
-            title varchar(255),
-            latitude decimal(10,5),
-            longitude decimal(10,5),
-            radius decimal(10,5),
-            place_id varchar(255) key primary
-        );
-        insert ignore into locations 
-    (
-        title,
-        latitude,
-        longitude,
-        radius,
-        place_id
-    )
-    values 
+use db;
+
+create table if not exists locations (
+    title varchar(255),
+    latitude decimal(10,5),
+    longitude decimal(10,5),
+    radius decimal(10,5),
+    place_id varchar(255),
+    primary key (place_id)
+);
+
+insert ignore into locations 
+(
+    title,
+    latitude,
+    longitude,
+    radius,
+    place_id
+)
+values 
 
 
 ('Lou Neff Point',30.2672311,-97.7617013,50,'ChIJRexbRxa1RIYRbavL1-t0agI'),
