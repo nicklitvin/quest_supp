@@ -1,7 +1,7 @@
-import { db_init, db_names, use_aws_ip } from "./globalConstants.js";
+import { db_init, db_names, data_types, other_consts, use_aws_ip } from "./globalConstants.js";
 import dotenv from 'dotenv';
 import mysql from "mysql2";
-import { writeFile } from "fs/promises"
+import { writeFile, readFile } from "fs/promises"
 
 export default class Backup {
     static folder = "backups"
@@ -71,31 +71,6 @@ export default class Backup {
         const seconds = String(dateObject.getSeconds()).padStart(2, "0");
 
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
-
-    static async create_location_sql() {
-        let sql = 
-        `
-insert ignore into ${db_names.locations_table} 
-(
-    ${db_names.locations_title_column},
-    ${db_names.locations_latitude_column},
-    ${db_names.locations_longitude_column},
-    ${db_names.locations_radius_column},
-    ${db_names.locations_id_column}
-)
-values
-        `
-        const locations = await Backup.run_sql(`select * from ${db_names.locations_table}`);
-
-        for (let x of locations) {
-            const row = 
-            `\n(${x[db_names.locations_title_column]},${x[db_names.locations_latitude_column]},${x[db_names.locations_longitude_column]},${x[db_names.locations_radius_column]},'${x[db_names.locations_id_column]}'),`;
-            sql += row;
-        }
-
-        sql = sql.slice(0, sql.length - 1) + ";"
-        await Backup.write_into_file(db_names.locations_table,sql);
     }
 
     static async create_user_sql() {
@@ -181,12 +156,38 @@ values
         await Backup.write_into_file(db_names.notifications_table,sql);
     }
 
+    static async create_claim_sql() {
+        let sql = 
+        `
+insert ignore into ${db_names.claims_table}
+(
+    ${db_names.claims_date_column},
+    ${db_names.claims_email_column},
+    ${db_names.claims_location_title}
+)
+values
+        `
+
+        const claims = await Backup.run_sql(`select * from ${db_names.claims_table}`);
+
+        for (let x of claims) {
+            const time = Backup.get_datetime(x[db_names.claims_date_column]);
+            const row = 
+            `\n('${time}','${x[db_names.claims_email_column]}','${x[db_names.claims_location_title]}'),`;
+            sql += row;
+        }
+       
+        sql = sql.slice(0, sql.length - 1) + ";"
+        await Backup.write_into_file(db_names.claims_table,sql);
+    }
+
     static async make_backup() {
-        await Backup.create_location_sql();
         await Backup.create_user_sql();
         await Backup.create_friend_sql();
         await Backup.create_notification_sql();
+        await Backup.create_claim_sql();
     }
+
 }
 
 const main = async () => {

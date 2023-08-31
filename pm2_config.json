@@ -2,7 +2,7 @@
     "apps": [
       {
         "name": "backup",
-        "script": "node ~/quest/server/backup.js",
+        "script": "node /home/ubuntu/quest/server/backup.js",
         "cron_restart": "0 0 * * *",  
         "watch": false
       }
