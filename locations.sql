@@ -1,4 +1,4 @@
-use db;
+use db_2;
 
 create table if not exists locations (
     title varchar(255),
@@ -18,7 +18,6 @@ insert ignore into locations
     place_id
 )
 values 
-
 ('Lou Neff Point',30.2672311,-97.7617013,50,'ChIJRexbRxa1RIYRbavL1-t0agI'),
 ('Covert Park at Mount Bonnell',30.3216722,-97.7732083,50,'ChIJecsZp8jKRIYR_WvZ0OYk9q0'),
 ('Sculpture Falls',30.26185019999999,-97.8235253,50,'ChIJ656QhmBKW4YRXNS33chcFhs'),
